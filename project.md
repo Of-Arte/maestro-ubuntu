@@ -24,11 +24,11 @@ dedicated machines. Ubuntu LTS is the VM and low-end device target:
 - Any student who needs a working environment in under 15 minutes
 
 ## Repo name
-`maestro-ubuntu-installer`
+`maestro-ubuntu`
 
 ## Repo structure to create
 ```
-maestro-ubuntu-installer/
+maestro-ubuntu/
 ├── README.md
 ├── install.sh              # entry point, idempotent, fully automated
 ├── validate.sh             # smoke tests per tier

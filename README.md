@@ -5,8 +5,12 @@ A standalone Ubuntu 24.04 LTS-based development environment for Maestro AI Softw
 ## Quickstart
 
 ```bash
-git clone https://github.com/Of-Arte/maestro-ubuntu-installer.git
-cd maestro-ubuntu-installer
+# Bootstrap git (required for fresh installs)
+sudo apt update && sudo apt install -y git
+
+# Clone and install
+git clone https://github.com/Of-Arte/maestro-ubuntu.git
+cd maestro-ubuntu
 chmod +x install.sh
 ./install.sh
 ```

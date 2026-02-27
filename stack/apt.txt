@@ -15,7 +15,10 @@ btop
 jq
 make
 shellcheck
-docker.io
+docker-ce
+docker-ce-cli
+containerd.io
+docker-buildx-plugin
 docker-compose-plugin
 python3
 python3-pip

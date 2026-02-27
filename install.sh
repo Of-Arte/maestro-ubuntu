@@ -13,6 +13,12 @@ if [[ "$UBUNTU_VERSION" != "24.04" ]]; then
     exit 1
 fi
 
+# Pre-flight check for essentials
+if ! command -v curl &> /dev/null; then
+    echo "Installing curl..."
+    sudo apt-get update && sudo apt-get install -y curl
+fi
+
 REPO_ROOT="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
 
 # Call base tier

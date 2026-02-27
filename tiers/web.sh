@@ -13,6 +13,10 @@ source "$REPO_ROOT/stack/runtime.versions"
 export NVM_DIR="$HOME/.nvm"
 [ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"
 
+echo "Setting up pnpm environment..."
+export PNPM_HOME="$HOME/.local/share/pnpm"
+export PATH="$PNPM_HOME:$PATH"
+
 echo "Installing global npm packages via pnpm..."
 pnpm install -g typescript vite eslint prettier
 

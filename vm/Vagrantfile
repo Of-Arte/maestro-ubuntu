@@ -1,0 +1,19 @@
+# -*- mode: ruby -*-
+# vi: set ft=ruby :
+
+Vagrant.configure("2") do |config|
+  config.vm.box = "ubuntu/noble64"
+
+  # GUI
+  config.vm.provider "virtualbox" do |vb|
+    vb.gui = true
+    vb.memory = "4096"
+    vb.cpus = 2
+    vb.name = "Maestro-Ubuntu"
+  end
+
+  # Auto-install base tier on provision
+  config.vm.provision "shell", inline: <<-SHELL
+    sudo bash /vagrant/install.sh
+  SHELL
+end

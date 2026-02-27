@@ -1,0 +1,21 @@
+#!/bin/bash
+# Welcome script run on first login
+
+echo "==========================================================="
+echo "               Welcome to Maestro Ubuntu v0.1"
+echo "==========================================================="
+echo ""
+echo "Currently installed tools (Base Tier):"
+echo "  - Python, Node, uv, pnpm, Docker, Zsh, tmux, ripgrep, jq"
+echo "  - C/C++ build essentials, git, gh"
+echo ""
+echo "How to advance:"
+echo "  - To install the Web Stack (Terms 3-6): maestro install web"
+echo "  - To install the AI Stack (Terms 7-9):  maestro install ai"
+echo ""
+echo "Validation:"
+echo "  - To check current installation:        maestro validate"
+echo ""
+echo "Reference:"
+echo "  - Keybinds overview available at: ./desktop/keybinds.md"
+echo "==========================================================="

@@ -1,0 +1,45 @@
+#!/bin/bash
+set -euo pipefail
+
+echo "===================================================="
+echo " Maestro Stack Validation"
+echo "===================================================="
+
+cd "$(dirname "$0")"
+REPO_ROOT="$(pwd)"
+source "$REPO_ROOT/stack/runtime.versions"
+
+PASSED=0
+FAILED=0
+
+check() {
+    local name="$1"
+    local cmd="$2"
+    if eval "$cmd" >/dev/null 2>&1; then
+        echo "[PASS] $name"
+        ((PASSED++))
+    else
+        echo "[FAIL] $name"
+        ((FAILED++))
+    fi
+}
+
+check "Ubuntu 24.04 LTS" "grep -q 'VERSION_ID=\"24.04\"' /etc/os-release"
+check "Python $PYTHON_VERSION" "python3 --version | grep -q '$PYTHON_VERSION'"
+check "Node $NODE_VERSION" "source \$HOME/.nvm/nvm.sh && node --version | grep -q 'v$NODE_VERSION'"
+check "Docker daemon running" "docker info"
+check "Docker hello-world" "docker run --rm hello-world"
+check "git" "git --version"
+check "uv" "uv --version"
+check "pnpm" "pnpm --version"
+check "zsh" "zsh --version"
+check "maestro CLI" "command -v maestro"
+check "maestro CLI version" "maestro version"
+
+echo "===================================================="
+echo "Summary: $PASSED passed, $FAILED failed"
+echo "===================================================="
+
+if [ $FAILED -gt 0 ]; then
+    exit 1
+fi

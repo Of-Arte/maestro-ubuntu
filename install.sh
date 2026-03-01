@@ -99,6 +99,9 @@ export REPO_ROOT="$REPO_ROOT"
         # or we can extract it. Let's just call install.sh with --identity-only
         bash "\$REPO_ROOT/install.sh" --identity-only
         ;;
+    uninstall)
+        bash "\$REPO_ROOT/uninstall.sh"
+        ;;
     validate)
         bash "\$REPO_ROOT/validate.sh"
         ;;

@@ -45,6 +45,8 @@ chmod +x install.sh
 Once installed, the `maestro` CLI is available globally:
 
 - `maestro validate`: Validate current tier installation.
+- `maestro setup-identity`: Refresh wallpaper and terminal branding.
 - `maestro install web`: Install Web (FE + BE) stack.
 - `maestro install ai`: Install AI/ML stack.
+- `maestro uninstall`: Remove the Maestro CLI and most local settings.
 - `maestro version`: View the CLI version.

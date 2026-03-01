@@ -2,7 +2,8 @@
 set -euo pipefail
 
 VM_NAME="${1:-"Maestro-Ubuntu"}"
-OUT_FILE="maestro-ubuntu-v0.1.ova"
+VERSION=$(cat "$(dirname "$0")/../VERSION")
+OUT_FILE="maestro-ubuntu-v${VERSION}.ova"
 
 echo "=========================================================="
 echo "Preparing to export $VM_NAME to $OUT_FILE"

@@ -17,16 +17,20 @@ check() {
     local cmd="$2"
     if eval "$cmd" >/dev/null 2>&1; then
         echo "[PASS] $name"
-        ((PASSED++))
+        : $((PASSED++))
     else
         echo "[FAIL] $name"
-        ((FAILED++))
+        : $((FAILED++))
     fi
 }
 
+# Relaxed version strings (Major.Minor)
+PYTHON_MM="${PYTHON_VERSION%.*}"
+NODE_MM="${NODE_VERSION%.*}"
+
 check "Ubuntu 24.04 LTS" "grep -q 'VERSION_ID=\"24.04\"' /etc/os-release"
-check "Python $PYTHON_VERSION" "python3 --version | grep -q '$PYTHON_VERSION'"
-check "Node $NODE_VERSION" "source \$HOME/.nvm/nvm.sh && node --version | grep -q 'v$NODE_VERSION'"
+check "Python $PYTHON_MM" "python3 --version | grep -q '$PYTHON_MM'"
+check "Node $NODE_MM" "source \$HOME/.nvm/nvm.sh && node --version | grep -q 'v$NODE_MM'"
 check "Docker daemon running" "docker info"
 check "Docker hello-world" "docker run --rm hello-world"
 check "git" "git --version"

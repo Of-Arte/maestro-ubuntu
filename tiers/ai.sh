@@ -10,15 +10,23 @@ REPO_ROOT="$(pwd)"
 
 source "$REPO_ROOT/stack/runtime.versions"
 
+# Hardening: Check for with_retries
+if ! command -v with_retries &> /dev/null; then
+    with_retries() {
+        local n=1; local max=3; local delay=5
+        while true; do "$@" && break || { if [[ $n -lt $max ]]; then ((n++)); echo "Failed. Attempt $n/$max in ${delay}s..."; sleep $delay; else echo "Failed after $max attempts."; return 1; fi; }; done
+    }
+fi
+
 echo "Setting up Python virtual environment for AI Tier..."
 export PATH="$HOME/.cargo/bin:$HOME/.local/bin:$PATH"
 mkdir -p "$HOME/.maestro/venvs"
 if [ ! -d "$HOME/.maestro/venvs/ai" ]; then
-    uv venv "$HOME/.maestro/venvs/ai" --python "$PYTHON_VERSION"
+    with_retries uv venv "$HOME/.maestro/venvs/ai" --python "$PYTHON_VERSION"
 fi
 
 echo "Installing Python AI packages..."
-uv pip install \
+with_retries uv pip install \
     numpy pandas scipy matplotlib seaborn \
     scikit-learn xgboost jupyterlab \
     torch torchvision \
@@ -31,9 +39,9 @@ uv pip install \
 
 echo "Installing Ollama pinned to $OLLAMA_VERSION..."
 if [ "$OLLAMA_VERSION" = "latest" ]; then
-    curl -fsSL https://ollama.com/install.sh | sh
+    with_retries curl -fsSL https://ollama.com/install.sh | sh
 else
-    curl -fsSL https://ollama.com/install.sh | OLLAMA_VERSION="$OLLAMA_VERSION" sh
+    with_retries curl -fsSL https://ollama.com/install.sh | OLLAMA_VERSION="$OLLAMA_VERSION" sh
 fi
 
 echo "Enabling Ollama service..."
@@ -42,9 +50,9 @@ sudo systemctl enable --now ollama
 echo "Pulling Docker images for AI stack..."
 if ! docker info >/dev/null 2>&1; then
     echo "WARNING: Docker is not accessible without sudo. Using sudo for pulls."
-    sudo docker pull rabbitmq:3-management
+    with_retries sudo docker pull rabbitmq:3-management
 else
-    docker pull rabbitmq:3-management
+    with_retries docker pull rabbitmq:3-management
 fi
 
 echo "===================================================="

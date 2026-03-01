@@ -1,0 +1,35 @@
+name: CI Test
+
+on:
+  push:
+    branches: [ main ]
+  pull_request:
+    branches: [ main ]
+  workflow_dispatch:
+
+jobs:
+  test-install:
+    runs-on: ubuntu-24.04
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Run Installer (Headless)
+        run: |
+          # We run in headless mode to avoid GNOME/gsettings failures in GitHub Actions
+          export MAESTRO_HEADLESS=1
+          bash install.sh --headless
+
+      - name: Validate Base Tier
+        run: |
+          # Use the newly created maestro CLI
+          maestro validate
+
+      - name: Test Uninstall
+        run: |
+          maestro uninstall
+          # Basic check to ensure CLI is gone
+          if command -v maestro &> /dev/null; then
+            echo "Uninstall failed: maestro command still exists"
+            exit 1
+          fi

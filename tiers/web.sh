@@ -10,6 +10,14 @@ REPO_ROOT="$(pwd)"
 
 source "$REPO_ROOT/stack/runtime.versions"
 
+# Hardening: Check for with_retries (should be in install.sh, but let's redefine if missing for standalone usage)
+if ! command -v with_retries &> /dev/null; then
+    with_retries() {
+        local n=1; local max=3; local delay=5
+        while true; do "$@" && break || { if [[ $n -lt $max ]]; then ((n++)); echo "Failed. Attempt $n/$max in ${delay}s..."; sleep $delay; else echo "Failed after $max attempts."; return 1; fi; }; done
+    }
+fi
+
 export NVM_DIR="$HOME/.nvm"
 [ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"
 
@@ -18,17 +26,17 @@ export PNPM_HOME="$HOME/.local/share/pnpm"
 export PATH="$PNPM_HOME:$PATH"
 
 echo "Installing global npm packages via pnpm..."
-pnpm install -g typescript vite eslint prettier
+with_retries pnpm install -g typescript vite eslint prettier
 
 echo "Setting up Python virtual environment for Web Tier..."
 export PATH="$HOME/.cargo/bin:$HOME/.local/bin:$PATH"
 mkdir -p "$HOME/.maestro/venvs"
 if [ ! -d "$HOME/.maestro/venvs/web" ]; then
-    uv venv "$HOME/.maestro/venvs/web" --python "$PYTHON_VERSION"
+    with_retries uv venv "$HOME/.maestro/venvs/web" --python "$PYTHON_VERSION"
 fi
 
 echo "Installing Python web packages..."
-uv pip install \
+with_retries uv pip install \
     fastapi uvicorn httpx python-dotenv pydantic \
     pytest pytest-cov black ruff pre-commit \
     --python "$HOME/.maestro/venvs/web"
@@ -36,25 +44,25 @@ uv pip install \
 echo "Pulling Docker images for web stack..."
 if ! docker info >/dev/null 2>&1; then
     echo "WARNING: Docker is not accessible without sudo. Using sudo for pulls."
-    sudo docker pull postgres:16
-    sudo docker pull redis:7
-    sudo docker pull mongo:7
+    with_retries sudo docker pull postgres:16
+    with_retries sudo docker pull redis:7
+    with_retries sudo docker pull mongo:7
 else
-    docker pull postgres:16
-    docker pull redis:7
-    docker pull mongo:7
+    with_retries docker pull postgres:16
+    with_retries docker pull redis:7
+    with_retries docker pull mongo:7
 fi
 
 echo "Installing Web tier apt packages..."
-sudo DEBIAN_FRONTEND=noninteractive apt-get install -y httpie pgcli litecli nginx
+with_retries sudo DEBIAN_FRONTEND=noninteractive apt-get install -y httpie pgcli litecli nginx
 
 echo "Installing dbeaver-ce..."
-wget -qO /tmp/dbeaver-ce.deb "https://dbeaver.io/files/dbeaver-ce_latest_amd64.deb"
+with_retries wget -qO /tmp/dbeaver-ce.deb "https://dbeaver.io/files/dbeaver-ce_latest_amd64.deb"
 sudo dpkg -i /tmp/dbeaver-ce.deb || sudo apt-get install -f -y
 rm /tmp/dbeaver-ce.deb
 
 echo "Installing Playwright browsers..."
-pnpm dlx playwright install
+with_retries pnpm dlx playwright install
 
 echo "===================================================="
 echo "Web tier installation complete!"

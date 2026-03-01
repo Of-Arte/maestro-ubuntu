@@ -1,5 +1,7 @@
 # Maestro Ubuntu Installer
 
+![CI Test](https://github.com/Of-Arte/maestro-ubuntu/actions/workflows/ci.yml/badge.svg)
+
 A standalone Ubuntu 24.04 LTS-based development environment for Maestro AI Software Engineering students.
 
 ## Quickstart (One-Liner)
@@ -11,10 +13,7 @@ curl -sS https://raw.githubusercontent.com/Of-Arte/maestro-ubuntu/main/install.s
 ```
 
 ### CLI-Only / Headless Mode
-If you are running on a server or don't want the custom wallpaper/GNOME branding:
-```bash
-curl -sS https://raw.githubusercontent.com/Of-Arte/maestro-ubuntu/main/install.sh | bash -s -- --headless
-```
+The stack is now minimalist by default. No GUI customizations are applied during installation.
 
 ---
 
@@ -45,7 +44,6 @@ chmod +x install.sh
 Once installed, the `maestro` CLI is available globally:
 
 - `maestro validate`: Validate current tier installation.
-- `maestro setup-identity`: Refresh wallpaper and terminal branding.
 - `maestro install web`: Install Web (FE + BE) stack.
 - `maestro install ai`: Install AI/ML stack.
 - `maestro uninstall`: Remove the Maestro CLI and most local settings.

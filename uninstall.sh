@@ -29,15 +29,8 @@ if [ -f "$HOME/.bashrc" ]; then
 fi
 
 echo "Removing core packages (optional, keeping Docker for safety)..."
-# We could uninstall everything in apt.txt, but that might break other things
-# Let's just remove the identity-specific ones we added
-sudo apt-get remove -y fastfetch || true
-
-echo "Resetting GNOME settings..."
-gsettings reset org.gnome.desktop.background picture-uri
-gsettings reset org.gnome.desktop.background picture-uri-dark
-gsettings reset org.gnome.desktop.interface color-scheme
-gsettings reset org.gnome.desktop.interface clock-format
+# We could uninstall everything in apt.txt, but that might break other things.
+# Keeping packages by default.
 
 echo "=========================================================="
 echo "Uninstallation complete!"

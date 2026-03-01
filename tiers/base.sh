@@ -11,35 +11,35 @@ REPO_ROOT="$(pwd)"
 source "$REPO_ROOT/stack/runtime.versions"
 
 echo "Updating apt..."
-sudo apt-get update
-sudo apt-get upgrade -y
+with_retries sudo apt-get update
+with_retries sudo apt-get upgrade -y
 
 echo "Setting up official Docker repository..."
 sudo install -m 0755 -d /etc/apt/keyrings
-sudo curl -fsSL https://download.docker.com/linux/ubuntu/gpg -o /etc/apt/keyrings/docker.asc
+with_retries sudo curl -fsSL https://download.docker.com/linux/ubuntu/gpg -o /etc/apt/keyrings/docker.asc
 sudo chmod a+r /etc/apt/keyrings/docker.asc
 echo \
   "deb [arch=$(dpkg --print-architecture) signed-by=/etc/apt/keyrings/docker.asc] https://download.docker.com/linux/ubuntu \
   $(. /etc/os-release && echo "$VERSION_CODENAME") stable" | \
   sudo tee /etc/apt/sources.list.d/docker.list > /dev/null
-sudo apt-get update
+with_retries sudo apt-get update
 
 echo "Installing apt packages..."
-sudo DEBIAN_FRONTEND=noninteractive apt-get install -y $(cat "$REPO_ROOT/stack/apt.txt")
+with_retries sudo DEBIAN_FRONTEND=noninteractive apt-get install -y $(cat "$REPO_ROOT/stack/apt.txt")
 
 echo "Installing Node LTS via nvm pinned to $NODE_VERSION..."
-curl -o- https://raw.githubusercontent.com/nvm-sh/nvm/v0.39.7/install.sh | bash
+with_retries curl -o- https://raw.githubusercontent.com/nvm-sh/nvm/v0.39.7/install.sh | bash
 export NVM_DIR="$HOME/.nvm"
 [ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"
-nvm install "$NODE_VERSION"
+with_retries nvm install "$NODE_VERSION"
 nvm alias default "$NODE_VERSION"
 nvm use default
 
 echo "Installing uv pinned to $UV_VERSION..."
-curl -LsSf https://astral.sh/uv/install.sh | env UV_VERSION="$UV_VERSION" sh
+with_retries curl -LsSf https://astral.sh/uv/install.sh | env UV_VERSION="$UV_VERSION" sh
 
 echo "Installing pnpm pinned to $PNPM_VERSION via npm..."
-npm install -g pnpm@"$PNPM_VERSION"
+with_retries npm install -g pnpm@"$PNPM_VERSION"
 
 echo "Configuring pnpm..."
 export PNPM_HOME="$HOME/.local/share/pnpm"

@@ -1,9 +1,14 @@
 #!/bin/bash
 # Welcome script run on first login
 
-echo "==========================================================="
-echo "               Welcome to Maestro Ubuntu v0.1"
-echo "==========================================================="
+FASTFETCH_CONFIG="$(dirname "${BASH_SOURCE[0]}")/fastfetch.json"
+if [[ -f "$FASTFETCH_CONFIG" ]] && command -v fastfetch &> /dev/null; then
+    fastfetch --config "$FASTFETCH_CONFIG"
+else
+    echo "==========================================================="
+    echo "               Welcome to Maestro Ubuntu v0.1"
+    echo "==========================================================="
+fi
 echo ""
 echo "Currently installed tools (Base Tier):"
 echo "  - Python, Node, uv, pnpm, Docker, Zsh, tmux, ripgrep, jq"

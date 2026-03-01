@@ -2,10 +2,26 @@
 
 A standalone Ubuntu 24.04 LTS-based development environment for Maestro AI Software Engineering students.
 
-## Quickstart
+## Quickstart (One-Liner)
+
+To install the Maestro Stack on a fresh Ubuntu 24.04 LTS system:
 
 ```bash
-# Bootstrap git (required for fresh installs)
+curl -sS https://raw.githubusercontent.com/Of-Arte/maestro-ubuntu/main/install.sh | bash
+```
+
+### CLI-Only / Headless Mode
+If you are running on a server or don't want the custom wallpaper/GNOME branding:
+```bash
+curl -sS https://raw.githubusercontent.com/Of-Arte/maestro-ubuntu/main/install.sh | bash -s -- --headless
+```
+
+---
+
+## Manual Install
+
+```bash
+# Bootstrap git (required for fresh installs if curl is not used)
 sudo apt update && sudo apt install -y git
 
 # Clone and install

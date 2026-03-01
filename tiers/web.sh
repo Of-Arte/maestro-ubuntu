@@ -54,7 +54,7 @@ sudo dpkg -i /tmp/dbeaver-ce.deb || sudo apt-get install -f -y
 rm /tmp/dbeaver-ce.deb
 
 echo "Installing Playwright browsers..."
-pnpm exec playwright install
+pnpm dlx playwright install
 
 echo "===================================================="
 echo "Web tier installation complete!"

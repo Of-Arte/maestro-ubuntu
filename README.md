@@ -104,6 +104,27 @@ See [CONTRIBUTING.md](CONTRIBUTING.md).
 
 ---
 
+## Wallpapers & Visuals
+
+The distribution includes a pack of high-definition wallpapers located in `desktop/assets/`.
+
+| [Light Mode](desktop/assets/maestro_wallpaper_light.png) | [Marketing / Abstract](desktop/assets/maestro_marketing_abstract.png) | [Terminal Aesthetic](desktop/assets/maestro_terminal_aesthetic.png) |
+|:---:|:---:|:---:|
+| ![Light Mode](desktop/assets/maestro_wallpaper_light.png) | ![Marketing](desktop/assets/maestro_marketing_abstract.png) | ![Terminal](desktop/assets/maestro_terminal_aesthetic.png) |
+| A clean, professional **Light Mode** variant for bright environments. | High-impact **Abstract** branding for marketing and presentations. | A focused, code-centric **Terminal Aesthetic** for power users. |
+
+---
+
+## Future Roadmap
+
+- **Tier-Specific UI Themes**: Automatically apply unique visual themes (wallpapers, terminal colors, GNOME accents) based on the active tier.
+  - **Base Tier**: Minimalist / Clean
+  - **Web Tier**: Vibrant / Dynamic
+  - **AI Tier**: Cyber-Noir / Matrix-style
+- **Browser Profiles**: Pre-configured profiles for Firefox/Brave with relevant dev extensions per tier.
+
+---
+
 ## License
 
 [MIT](LICENSE) — © 2026 Of-Arte

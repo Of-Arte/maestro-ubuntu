@@ -36,6 +36,24 @@ check "zsh" "zsh --version"
 check "maestro CLI" "command -v maestro"
 check "maestro CLI version" "maestro version"
 
+# Web Tier Validation (if installed)
+if [[ -d "$HOME/.maestro/venvs/web" ]]; then
+    echo "--- Web Tier Detection ---"
+    check "Web venv" "test -d $HOME/.maestro/venvs/web"
+    check "FastAPI" "$HOME/.maestro/venvs/web/bin/pip list | grep -q fastapi"
+    check "Postgres CLI" "command -v pgcli"
+    check "Nginx" "command -v nginx"
+fi
+
+# AI Tier Validation (if installed)
+if [[ -d "$HOME/.maestro/venvs/ai" ]]; then
+    echo "--- AI Tier Detection ---"
+    check "AI venv" "test -d $HOME/.maestro/venvs/ai"
+    check "PyTorch" "$HOME/.maestro/venvs/ai/bin/pip list | grep -q torch"
+    check "Ollama service" "systemctl is-active --quiet ollama"
+    check "Ollama CLI" "command -v ollama"
+fi
+
 echo "===================================================="
 echo "Summary: $PASSED passed, $FAILED failed"
 echo "===================================================="

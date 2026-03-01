@@ -1,50 +1,109 @@
-# Maestro Ubuntu Installer
+# Maestro Ubuntu
 
-![CI Test](https://github.com/Of-Arte/maestro-ubuntu/actions/workflows/ci.yml/badge.svg)
+[![CI](https://github.com/Of-Arte/maestro-ubuntu/actions/workflows/ci.yml/badge.svg)](https://github.com/Of-Arte/maestro-ubuntu/actions/workflows/ci.yml)
+[![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](LICENSE)
 
-A standalone Ubuntu 24.04 LTS-based development environment for Maestro AI Software Engineering students.
+A tiered, automated development environment for Ubuntu 24.04 LTS. Built for [Maestro AI Software Engineering](https://github.com/Of-Arte) students who need a stable Linux environment on VirtualBox (Windows, macOS, or existing Linux).
 
-## Quickstart (One-Liner)
+Install only what the current term requires. Same tools, same CLI, same curriculum as the Maestro Omarchy ISO — just on Ubuntu instead of Arch.
 
-To install the Maestro Stack on a fresh Ubuntu 24.04 LTS system:
+---
+
+## Prerequisites
+
+- **OS**: Ubuntu 24.04 LTS (Noble Numbat) — no other versions supported
+- **RAM**: 4 GB minimum, 8 GB recommended
+- **Disk**: 20 GB minimum
+- **Network**: Required during install
+
+---
+
+## Quickstart
 
 ```bash
 curl -sS https://raw.githubusercontent.com/Of-Arte/maestro-ubuntu/main/install.sh | bash
 ```
 
-### CLI-Only / Headless Mode
-The stack is now minimalist by default. No GUI customizations are applied during installation.
+This installs the **Base Tier** and drops a `maestro` CLI on your PATH.
 
----
-
-## Manual Install
+### Manual install
 
 ```bash
-# Bootstrap git (required for fresh installs if curl is not used)
 sudo apt update && sudo apt install -y git
-
-# Clone and install
 git clone https://github.com/Of-Arte/maestro-ubuntu.git
 cd maestro-ubuntu
 chmod +x install.sh
 ./install.sh
 ```
 
-## Structure
+---
 
-- `install.sh`: Entry point, idempotent, fully automated. Installs the base tier.
-- `validate.sh`: Smoke tests to verify the installation.
-- `tiers/`: Individual installer scripts for Base, Web, and AI tiers.
-- `stack/`: Pinned runtime versions, apt packages, and more.
-- `desktop/`: Custom scripts and configuration for the end-user desktop experience.
-- `vm/`: Utilities to package the installation as an OVA for VirtualBox.
+## Tiers
 
-## Commands
+| Tier | Command | When | What's included |
+|---|---|---|---|
+| **Base** | _(installed automatically)_ | Terms 1–2 | Python 3.12, Node 20, Docker, Zsh, git, uv, pnpm, oh-my-zsh |
+| **Web** | `maestro install web` | Term 3+ | TypeScript, Vite, FastAPI, Postgres, Redis, MongoDB, DBeaver, Playwright |
+| **AI** | `maestro install ai` | Term 7+ | PyTorch, scikit-learn, LangChain, Ollama, Jupyter, ChromaDB, HuggingFace |
 
-Once installed, the `maestro` CLI is available globally:
+Install tiers in order. Each is idempotent — safe to run again.
 
-- `maestro validate`: Validate current tier installation.
-- `maestro install web`: Install Web (FE + BE) stack.
-- `maestro install ai`: Install AI/ML stack.
-- `maestro uninstall`: Remove the Maestro CLI and most local settings.
-- `maestro version`: View the CLI version.
+---
+
+## CLI Reference
+
+```bash
+maestro validate          # smoke test the current installation
+maestro install web       # install the web tier
+maestro install ai        # install the AI tier
+maestro uninstall         # remove Maestro CLI and settings
+maestro version           # print the stack version
+```
+
+---
+
+## Repo Structure
+
+```
+maestro-ubuntu/
+├── install.sh              # entry point — installs base tier, creates maestro CLI
+├── validate.sh             # smoke tests per tier
+├── uninstall.sh            # removes Maestro CLI and settings
+├── tiers/
+│   ├── base.sh             # Terms 1–2 stack
+│   ├── web.sh              # Terms 3–6 stack
+│   └── ai.sh               # Terms 7–9 stack
+├── stack/
+│   ├── apt.txt             # apt packages (base tier)
+│   ├── runtime.versions    # pinned runtime versions
+│   └── pip.txt             # Python packages
+├── vm/
+│   ├── build-ova.sh        # exports a VirtualBox .ova from a running VM
+│   └── Vagrantfile         # Vagrant wrapper for automated provisioning
+└── desktop/
+    ├── keybinds.md         # GNOME keyboard reference for students
+    └── maestro-welcome.sh  # first-login greeting
+```
+
+---
+
+## Design Principles
+
+- **Idempotent**: every script is safe to run twice
+- **Pinned**: all versions locked in `stack/runtime.versions`
+- **Tiered**: install only what the current term requires
+- **No credentials**: zero private keys, tokens, or hardcoded usernames
+- **No prompts**: fully automated, unattended installs only
+- **Fail fast**: `set -euo pipefail` in every script
+
+---
+
+## Contributing
+
+See [CONTRIBUTING.md](CONTRIBUTING.md).
+
+---
+
+## License
+
+[MIT](LICENSE) — © 2026 Of-Arte

@@ -9,14 +9,7 @@ cd "$(dirname "$0")/.."
 REPO_ROOT="$(pwd)"
 
 source "$REPO_ROOT/stack/runtime.versions"
-
-# Hardening: Check for with_retries
-if ! command -v with_retries &> /dev/null; then
-    with_retries() {
-        local n=1; local max=3; local delay=5
-        while true; do "$@" && break || { if [[ $n -lt $max ]]; then ((n++)); echo "Failed. Attempt $n/$max in ${delay}s..."; sleep $delay; else echo "Failed after $max attempts."; return 1; fi; }; done
-    }
-fi
+source "$REPO_ROOT/stack/utils.sh"
 
 echo "Setting up Python virtual environment for AI Tier..."
 export PATH="$HOME/.cargo/bin:$HOME/.local/bin:$PATH"

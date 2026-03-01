@@ -9,6 +9,7 @@ cd "$(dirname "$0")/.."
 REPO_ROOT="$(pwd)"
 
 source "$REPO_ROOT/stack/runtime.versions"
+source "$REPO_ROOT/stack/utils.sh"
 
 echo "Updating apt..."
 with_retries sudo apt-get update

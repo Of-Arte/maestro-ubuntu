@@ -4,9 +4,6 @@
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](LICENSE)
 
 A tiered, automated development environment for Ubuntu 24.04 LTS. Built for [Maestro AI Software Engineering](https://github.com/Of-Arte) students who need a stable Linux environment on VirtualBox (Windows, macOS, or existing Linux).
-
-Install only what the current term requires. Same tools, same CLI, same curriculum as the Maestro Omarchy ISO — just on Ubuntu instead of Arch.
-
 ---
 
 ## Prerequisites

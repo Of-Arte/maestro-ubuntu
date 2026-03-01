@@ -34,6 +34,9 @@ echo "Removing core packages (optional, keeping Docker for safety)..."
 
 echo "=========================================================="
 echo "Uninstallation complete!"
+if [ -f /usr/local/bin/maestro ]; then
+    echo "WARNING: Failed to remove /usr/local/bin/maestro"
+fi
 echo "Note: Base packages, Docker, and NVM were kept to avoid"
 echo "unintended side effects. You can remove them manually if"
 echo "needed."

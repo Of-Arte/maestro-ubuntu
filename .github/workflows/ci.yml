@@ -28,8 +28,8 @@ jobs:
       - name: Test Uninstall
         run: |
           maestro uninstall
-          # Basic check to ensure CLI is gone
+          hash -r
           if command -v maestro &> /dev/null; then
-            echo "Uninstall failed: maestro command still exists"
+            echo "Uninstall failed: maestro command still exists at $(command -v maestro)"
             exit 1
           fi

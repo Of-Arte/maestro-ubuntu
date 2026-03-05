@@ -3,10 +3,8 @@
 [![CI](https://github.com/Of-Arte/maestro-ubuntu/actions/workflows/ci.yml/badge.svg)](https://github.com/Of-Arte/maestro-ubuntu/actions/workflows/ci.yml)
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](LICENSE)
 
-A tiered, automated development environment for Ubuntu 24.04 LTS. Built for [Maestro AI Software Engineering](https://github.com/Of-Arte) students who need a stable Linux environment on VirtualBox (Windows, macOS, or existing Linux).
-
-Install only what the current term requires. Same tools, same CLI, same curriculum as the Maestro Omarchy ISO — just on Ubuntu instead of Arch.
-
+- A tiered, automated development environment for Ubuntu 24.04 LTS. Built for [Maestro AI Software Engineering](https://github.com/Of-Arte) students who need a stable Linux environment on VirtualBox (Windows, macOS, or existing Linux). 
+- Maestro Ubuntu is designed to give every student immediate access to the full suite of industry-relevant tools used throughout the program, from version control and containerization to AI/ML frameworks.
 ---
 
 ## Prerequisites

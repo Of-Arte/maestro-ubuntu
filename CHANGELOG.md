@@ -7,6 +7,19 @@ Versioning follows [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
 ---
 
+## [0.2.0](https://github.com/Of-Arte/maestro-ubuntu/compare/maestro-ubuntu-v0.1.0...maestro-ubuntu-v0.2.0) (2026-03-06)
+
+
+### Features
+
+* add future roadmap details and wallpaper visuals to documentation ([310a007](https://github.com/Of-Arte/maestro-ubuntu/commit/310a007dfb412938ce760b6b481cbf4a88039b92))
+* Add web development tier setup script, fastfetch configuration, and desktop assets for Maestro Ubuntu. ([f742fe1](https://github.com/Of-Arte/maestro-ubuntu/commit/f742fe11a1448e9840153dc7e787e03538de19b1))
+
+
+### Bug Fixes
+
+* setup bootstrap, docker repository, and repo name consistency ([7db884d](https://github.com/Of-Arte/maestro-ubuntu/commit/7db884d0e0e62594893cea5073b76dd7867f6f15))
+
 ## [v0.1.0] — 2026-03-01
 
 ### Added

@@ -102,9 +102,7 @@ See [CONTRIBUTING.md](CONTRIBUTING.md).
 
 ---
 
-## Wallpapers & Visuals
-
-The distribution includes a pack of high-definition wallpapers located in `desktop/assets/`.
+## Visuals
 
 | [Base Tier](desktop/assets/maestro_wallpaper_light.png) | [Web Tier](desktop/assets/maestro_marketing_abstract.png) | [AI Tier](desktop/assets/maestro_terminal_aesthetic.png) |
 |:---:|:---:|:---:|
